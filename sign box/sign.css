@@ -3,5 +3,30 @@ body {
     padding: 0;
     box-sizing: border-box;
     width: 100%;
-    background-color: aquamarine;
+    background-color: white;
+}
+
+.go-home {
+    position: relative;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 54px;
+    height: 54px;
+}
+
+.go-home-link {
+    position: absolute;
+    height: 52px;
+}
+
+.sign-div {
+    position: relative;
+    padding-left: 20px;
+    padding-top: 20px;
+    width: 300px;
+    height: 200px;
+    max-height: 350px;
+    border: 1px solid black;
+    margin-left: calc(50% - 150px);
+    margin-top: calc(17% - 100px);
 }
