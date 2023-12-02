@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../imagesbox/icons8-войти-16.png" type="image/x-icon">
     <link rel="stylesheet" href="./sign.css">
     <title>Sign in</title>
 </head>
 <body>
-    
+    <div class="go-home">
+        <a class="go-home-link" href="../store.html">
+            <img class="go-home-image" src="../imagesbox/icons8-главная-50.png" alt="go home">
+        </a>
+    </div>
+    <div class="sign-div sign-in">
+        <form class="sign-in-form">
+            <label for="gmail">Email:</label><br>
+            <input type="email" name="gmail" id="gmail" pattern="" required><br><br>
+            <label for="password-block">Password:</label><br>
+            <input type="password" name="password-block" id="password-block" required><br><br>
+            <input type="submit" value="submit">
+        </form>
+        <p class="sign-div-text">Don't have an account yet?
+            <a class="sign-div-link" href="./signup.html">Sign up</a>
+        </p>
+    </div>
 </body>
 </html>
