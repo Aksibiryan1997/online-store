@@ -1,5 +1,37 @@
 let products = [];
 
+function limitProduct(fullArray) {
+    let paginationNumber = document.getElementsByClassName("pagination-number");
+    let paginationSymbol = document.getElementsByClassName("pagination-symbol");
+    for(let i = 0; i < paginationNumber.length; i++) {
+        paginationNumber[i].addEventListener("click", function(){
+            document.getElementsByClassName("products-block")[0].innerHTML = '';
+            let limitnumber = Number(paginationNumber[i].innerHTML);
+            let minlimit = (limitnumber - 1) * 8 ;
+            let maxlimit = limitnumber * 8; 
+            if(maxlimit > fullArray.length){
+                maxlimit = fullArray.length;
+            }
+            paginationSymbol[0].addEventListener("click", function() {
+                if (limitnumber > 1) {
+                    limitnumber -= 1;
+                    let limitOfProducts = fullArray.slice(minlimit, maxlimit);
+                    showProduct(limitOfProducts);
+                }
+            })
+            paginationSymbol[1].addEventListener("click", function() {
+                if (limitnumber < paginationNumber.length - 2) {
+                    limitnumber += 1;
+                    let limitOfProducts = fullArray.slice(minlimit, maxlimit);
+                    showProduct(limitOfProducts);
+                }
+            })
+            let limitOfProducts = fullArray.slice(minlimit, maxlimit);
+            showProduct(limitOfProducts);
+        })
+    }
+}
+
 function showProduct(prodArray) {
     let productsBlock = document.getElementsByClassName("products-block");
     for(let i = 0; i < prodArray.length; i++) {
@@ -29,7 +61,9 @@ function showProduct(prodArray) {
         product.appendChild(productRating);
         let productDescription = document.createElement("p");
         productDescription.setAttribute("class", "product-description");
-        
+        productDescription.setAttribute("title", prodArray[i].description);
+        productDescription.innerHTML = "<b>" + "Description:" + "</b>";
+        product.appendChild(productDescription);
     }
 }
 
@@ -38,5 +72,5 @@ fetch('https://fakestoreapi.com/products')
 .then(data=>{
     products = data;
     console.log(products);
-    showProduct(products);
+    limitProduct(products);
 });
