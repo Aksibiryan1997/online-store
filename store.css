@@ -60,12 +60,7 @@ body {
 .main {
     width: 100%;
     padding: 50px;
-    border: 1px solid black;
     margin-top: 50px;
-}
-
-.products-block {
-    border: 1px solid red;
 }
 
 .product {
@@ -73,7 +68,6 @@ body {
     margin: 10px 5px ;
     width: 300px;
     height: 500px;
-    border: 1px solid green;
     background-color: white;
     overflow: hidden;
 }
@@ -81,7 +75,6 @@ body {
 .product-image {
     width: 298px;
     height: 300px;
-    border: 1px solid black;
 }
 
 .product-title, .product-price, .product-category, .product-rating, .product-description {
@@ -97,7 +90,6 @@ body {
     width: 300px;
     padding: 5px 0;
     text-align: center;
-    border: 1px solid black;
     margin-left: calc((50% - 150px));
 }
 

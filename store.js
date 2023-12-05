@@ -1,8 +1,14 @@
 let products = [];
+let limitOfProducts;
+
+function setlimits(arr, numb1, numb2) {
+    limitOfProducts = arr.slice(numb1, numb2);
+    showProduct(limitOfProducts);
+}
 
 function limitProduct(fullArray) {
     let paginationNumber = document.getElementsByClassName("pagination-number");
-    let paginationSymbol = document.getElementsByClassName("pagination-symbol");
+    setlimits(fullArray, 0, 8);
     for(let i = 0; i < paginationNumber.length; i++) {
         paginationNumber[i].addEventListener("click", function(){
             document.getElementsByClassName("products-block")[0].innerHTML = '';
@@ -12,22 +18,7 @@ function limitProduct(fullArray) {
             if(maxlimit > fullArray.length){
                 maxlimit = fullArray.length;
             }
-            paginationSymbol[0].addEventListener("click", function() {
-                if (limitnumber > 1) {
-                    limitnumber -= 1;
-                    let limitOfProducts = fullArray.slice(minlimit, maxlimit);
-                    showProduct(limitOfProducts);
-                }
-            })
-            paginationSymbol[1].addEventListener("click", function() {
-                if (limitnumber < paginationNumber.length - 2) {
-                    limitnumber += 1;
-                    let limitOfProducts = fullArray.slice(minlimit, maxlimit);
-                    showProduct(limitOfProducts);
-                }
-            })
-            let limitOfProducts = fullArray.slice(minlimit, maxlimit);
-            showProduct(limitOfProducts);
+            setlimits(fullArray, minlimit, maxlimit);
         })
     }
 }
