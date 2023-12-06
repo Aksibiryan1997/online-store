@@ -21,16 +21,26 @@ body {
 
 .sign-div {
     position: relative;
-    padding-left: 20px;
-    padding-top: 20px;
+    padding: 10px 0 ;
+    text-align: center;
     width: 300px;
-    height: 200px;
-    max-height: 350px;
+    height: 350px;
     margin-left: calc(50% - 150px);
-    margin-top: calc(17% - 100px);
+    margin-top: calc(17% - 175px);
 }
 
 .sign-div-link {
     text-decoration: none;
     color: blue;
+}
+
+.submit {
+    width: 100px;
+    margin-left: 90px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 15px;
 }

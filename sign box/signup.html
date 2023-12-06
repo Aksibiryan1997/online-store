@@ -15,16 +15,24 @@
         </a>
     </div>
     <div class="sign-div sign-up">
-        <form class="sign-up-form">
+        <form action="#" class="sign-up-form">
             <label for="gmail">Email:</label><br>
-            <input type="email" name="gmail" id="gmail" pattern="" required><br><br>
+            <input type="email" name="gmail" id="gmail" autocomplete="on" required><br><br>
+            <label for="username">Username:</label><br>
+            <input type="text" name="username" id="username" autocomplete="on" required><br><br>
+            <label for="firstname">Firstname:</label><br>
+            <input type="text" name="firstname" id="firstname" autocomplete="on" required><br><br>
+            <label for="Lastname">Lastname:</label><br>
+            <input type="text" name="lastname" id="lastname" autocomplete="on" required><br><br>
             <label for="password-block">Password:</label><br>
-            <input type="password" name="password-block" id="password-block" required><br><br>
-            <input type="submit" value="submit">
+            <input type="password" name="password-block" id="password-block"
+             autocomplete="off" required>
+            <p class="submit sign-up-submit" onclick="signUpSubmit();">Submit</p>
         </form>
         <p class="sign-div-text">Already have an account?
             <a class="sign-div-link" href="./signin.html">Sign in</a>
         </p>
     </div>
+    <script src="./sign.js"></script>
 </body>
 </html>
