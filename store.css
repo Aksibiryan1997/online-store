@@ -1,10 +1,10 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
-    padding: 0;
     width: 100%;
     background-color: bisque;
 }
@@ -60,23 +60,47 @@ body {
 .main {
     width: 100%;
     padding: 50px;
-    border: 1px solid black;
     margin-top: 50px;
 }
 
-.products-block {
-    border: 1px solid red;
-}
-
-.sefr {
+.product {
     display: inline-block;
-    margin-right: 10px;
+    margin: 10px 5px ;
     width: 300px;
     height: 500px;
-    border: 1px solid green;
+    background-color: white;
+    overflow: hidden;
 }
 
-.sefr:last-child {
-    margin-right: 0;
-    float: right;
+.product-image {
+    width: 298px;
+    height: 300px;
+}
+
+.product-title, .product-price, .product-category, .product-rating, .product-description {
+    margin: 10px;
+}
+
+.product-description {
+    color: darkgreen;
+}
+
+.pagination-block {
+    margin-top: 20px;
+    width: 300px;
+    padding: 5px 0;
+    text-align: center;
+    margin-left: calc((50% - 150px));
+}
+
+.pagination-button {
+    margin-left: 5px;
+    margin-right: 5px;
+    text-decoration: none;
+    font-size: 20px;
+    color: dodgerblue;
+}
+
+.pagination-symbol {
+    color: black;
 }
