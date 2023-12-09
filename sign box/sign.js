@@ -53,9 +53,19 @@ function submitSignUp() {
     let signUpForm = document.getElementsByTagName("form")[1];
     let gmailVal = signUpForm.getElementsByTagName("input")[0].value;
     let passwordVal = signUpForm.getElementsByTagName("input")[1].value;
-    let userExample = new User(gmailVal, passwordVal);
-    usersArr.push(userExample);
-    console.log(usersArr);
+    let sameEmail = [];
+    for(let i = 0; i < usersArr.length; i++) {
+        if(usersArr[i].mail == gmailVal) {
+            sameEmail.push(usersArr[i].mail);
+        }
+    }
+    if(sameEmail.length > 0) {
+        alert("There is an account with this email");
+    }else {
+        let userExample = new User(gmailVal, passwordVal);
+        usersArr.push(userExample);
+        console.log(usersArr);
+    }
 }
 
 function submitSignIn() {
