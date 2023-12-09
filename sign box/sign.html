@@ -20,19 +20,19 @@
             <input type="email" name="gmail" id="gmail" autocomplete="on" required><br><br>
             <label for="password-block">Password:</label><br>
             <input type="password" name="password-block" id="password-block" autocomplete="off" required><br><br>
-            <p class="submit sign-in-submit">Sign in</p>
+            <p onclick="submitSignIn();" class="submit sign-in-submit">Sign in</p>
         </form>
         <p class="sign-div-text">Don't have an account yet?</p>
         <p onclick="signUpVisible();" class="sign-div-link sign-up-link">Sign up</p>
     </div>
     <div id="sign-up-div">
-        <form class="sign-up-form">
+        <form name="sign-up" class="sign-up-form">
             <label for="sign-up-gmail">Email:</label><br>
             <input type="email" name="sign-up-gmail" id="sign-up-gmail" autocomplete="off" required><br><br>
             <label for="sign-up-password-block">Password:</label><br>
             <input type="password" name="sign-up-password-block"
              id="sign-up-password-block" autocomplete="off" required><br><br>
-            <p class="submit sign-up-submit">Sign up</p>
+            <p onclick="submitSignUp();" class="submit sign-up-submit">Sign up</p>
         </form>
         <p class="sign-div-text">Already have an account?</p>
         <p onclick="signInVisible();" class="sign-div-link sign-in-link">Sign in</p>
