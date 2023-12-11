@@ -59,9 +59,45 @@ function submitSignUp() {
             sameEmail.push(usersArr[i].mail);
         }
     }
-    if(sameEmail.length > 0) {
-        alert("There is an account with this email");
+    if(sameEmail.length > 0 || !Boolean(gmailVal[0].match(/\w/g)) ||
+     !(gmailVal.includes("@")) || !gmailVal.endsWith("gmail.com")) {
+        if(sameEmail.length > 0) {
+            alert("There is an account with this email");
+        }
+        if(!Boolean(gmailVal[0].match(/\w/g))) {
+            alert("Email must begin with character a-z, A-Z, 0-9, including _")
+        }
+        if(!(gmailVal.includes("@"))) {
+            alert("Email must contain '@' symbol");
+        }
+        if(!(gmailVal.endsWith("gmail.com"))) {
+            alert("Email must ends with 'gmail.com'");
+        }
+    }else if(passwordVal.length < 8 || Boolean(passwordVal.match(/\s/g)) ||
+     !Boolean(passwordVal.match(/\d/g)) || !Boolean(passwordVal.match(/\W/g)) ||
+     !Boolean(passwordVal.match(/[a-z]/g)) || !Boolean(passwordVal.match(/[A-Z]/g))) {
+        if(passwordVal.length < 8){
+            alert("The password must be at least 8 characters long");
+        }
+        if(Boolean(passwordVal.match(/\s/g))) {
+            alert("the password must not contain a space");
+        }
+        if(!Boolean(passwordVal.match(/\d/g))) {
+            alert("the password must contain at least one number");
+        }
+        if(!Boolean(passwordVal.match(/\W/g))) {
+            alert("the password must contain at least one non-alphabetic and non-numeric character");
+        }
+        if(!Boolean(passwordVal.match(/[a-z]/g))) {
+            alert("the password must contain at least one lowercase letter");
+        }
+        if(!Boolean(passwordVal.match(/[A-Z]/g))) {
+            alert("The password must contain at least one capital letter");
+            alert("the password must contain letters of the Latin alphabet");
+        }
     }else {
+        gmailVal.trim();
+        passwordVal.trim();
         let userExample = new User(gmailVal, passwordVal);
         usersArr.push(userExample);
         console.log(usersArr);
