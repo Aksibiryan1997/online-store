@@ -2,9 +2,10 @@ let signBlockVisibility = true;
 let usersArr = [];
 class User {
 
-    constructor(gmail, password) {
+    constructor(gmail, password, id) {
         this.mail = gmail;
         this.passwrd = password;
+        this.id = id
     }
 
     changeParms(email, pswrd) {
@@ -12,8 +13,13 @@ class User {
         this.passwrd = pswrd;
     } 
 
-}
+};
 
+let firstUserExamp = new User("1", "2", 0);
+usersArr.push(firstUserExamp);
+
+let forgotDiv = document.getElementById("forgot-pwd-div");
+forgotDiv.style.display = "none";
 let signPageTitle = document.querySelector("title");
 if(signBlockVisibility) {
     document.getElementById("sign-in-div").style.display = "block";
@@ -22,7 +28,25 @@ if(signBlockVisibility) {
     document.getElementById("sign-up-div").style.display = "block";
     document.getElementById("sign-in-div").style.display = "none";
 }
+
+function showForgotDiv() {
+    forgotDiv.style.display = "block";
+    document.getElementById("sign-in-div").style.display = "none";
+    document.getElementById("sign-up-div").style.display = "none";
+    setTimeout(function(){
+        alert("Enter the email address"
+        + " with which you are registered" +
+         " on the website so that we can send you your password.");
+    }, 600);
+}
+
 function signUpVisible(){
+    let signInForm = document.getElementsByTagName("form")[0];
+    signInForm.getElementsByTagName("input")[0].value = "";
+    signInForm.getElementsByTagName("input")[1].value = "";
+    document.getElementById("signin-gmail-issue").style.display = "none";
+    document.getElementById("signin-password-issue").style.display = "none";
+    forgotDiv.style.display = "none";
     signBlockVisibility = false;
     if(signBlockVisibility) {
         document.getElementById("sign-in-div").style.display = "block";
@@ -36,6 +60,12 @@ function signUpVisible(){
     signUpIcon.setAttribute("href", "../imagesbox/icons8-зарегистрироваться-16.png");
 };
 function signInVisible() {
+    let signUpForm = document.getElementsByTagName("form")[1];
+    signUpForm.getElementsByTagName("input")[0].value = "";
+    signUpForm.getElementsByTagName("input")[1].value = "";
+    document.getElementById("signup-gmail-issue").style.display = "none";
+    document.getElementById("signup-password-issue").style.display = "none";
+    forgotDiv.style.display = "none";
     signBlockVisibility = true;
     if(signBlockVisibility) {
         document.getElementById("sign-in-div").style.display = "block";
@@ -120,7 +150,8 @@ function submitSignUp() {
     }else {
         gmailVal.trim();
         passwordVal.trim();
-        let userExample = new User(gmailVal, passwordVal);
+        let previousUserId = usersArr[usersArr.length - 1].id;
+        let userExample = new User(gmailVal, passwordVal, previousUserId + 1);
         usersArr.push(userExample);
         console.log(usersArr);
         signInVisible();
