@@ -21,7 +21,7 @@ body {
     height: 52px;
 }
 
-#sign-up-div, #sign-in-div, #forgot-pwd-div {
+#sign-up-div, #sign-in-div {
     position: relative;
     padding: 70px 0 ;
     text-align: center;
@@ -29,10 +29,6 @@ body {
     min-height: 350px;
     margin-left: calc(50% - 150px);
     margin-top: calc(17% - 175px);
-}
-
-#forgot-pwd-div {
-    display: none;
 }
 
 .sign-div-text {
@@ -50,11 +46,11 @@ body {
     margin-left: 45px;
     margin-bottom: 20px;
     display: none;
+    color: red;
 }
 
 .pwd-issue {
     list-style-type: none;
-    color: red;
 }
 
 .submit {
@@ -68,11 +64,4 @@ body {
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 15px;
-}
-
-.forgot-pwd {
-    color: blue;
-    margin-top: 10px;
-    margin-left: 5px;
-    cursor: pointer;
 }
