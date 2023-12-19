@@ -2,9 +2,10 @@ let signBlockVisibility = true;
 let usersArr = [];
 class User {
 
-    constructor(gmail, password) {
+    constructor(gmail, password, id) {
         this.mail = gmail;
         this.passwrd = password;
+        this.id = id
     }
 
     changeParms(email, pswrd) {
@@ -12,6 +13,16 @@ class User {
         this.passwrd = pswrd;
     } 
 
+};
+
+if(localStorage.getItem("user")) {
+    usersArr = JSON.parse(localStorage.getItem("user"));
+    console.log("furme");
+    console.log(usersArr);
+}else{
+    let firstUserExamp = new User("1", "2", 0);
+    usersArr.push(firstUserExamp);
+    console.log("dga");
 }
 
 let signPageTitle = document.querySelector("title");
@@ -22,7 +33,13 @@ if(signBlockVisibility) {
     document.getElementById("sign-up-div").style.display = "block";
     document.getElementById("sign-in-div").style.display = "none";
 }
+
 function signUpVisible(){
+    let signInForm = document.getElementsByTagName("form")[0];
+    signInForm.getElementsByTagName("input")[0].value = "";
+    signInForm.getElementsByTagName("input")[1].value = "";
+    document.getElementById("signin-gmail-issue").style.display = "none";
+    document.getElementById("signin-password-issue").style.display = "none";
     signBlockVisibility = false;
     if(signBlockVisibility) {
         document.getElementById("sign-in-div").style.display = "block";
@@ -36,6 +53,11 @@ function signUpVisible(){
     signUpIcon.setAttribute("href", "../imagesbox/icons8-зарегистрироваться-16.png");
 };
 function signInVisible() {
+    let signUpForm = document.getElementsByTagName("form")[1];
+    signUpForm.getElementsByTagName("input")[0].value = "";
+    signUpForm.getElementsByTagName("input")[1].value = "";
+    document.getElementById("signup-gmail-issue").style.display = "none";
+    document.getElementById("signup-password-issue").style.display = "none";
     signBlockVisibility = true;
     if(signBlockVisibility) {
         document.getElementById("sign-in-div").style.display = "block";
@@ -46,7 +68,7 @@ function signInVisible() {
     }
     signPageTitle.innerHTML = "Sign in";
     let signInIcon = document.querySelector("link[rel='shortcut icon']");
-    signInIcon.setAttribute("href", "../imagesbox/icons8-войти-16.png")
+    signInIcon.setAttribute("href", "../imagesbox/icons8-войти-16.png");
 }; 
 
 function submitSignUp() {
@@ -73,18 +95,6 @@ function submitSignUp() {
           "<li>- must not contain a space.</li>" + 
           "<li>- must contain Latin alphabet.</li>" +
          "<li>- must ends with 'gmail.com' .</li></ul>";
-        /*if(sameEmail.length > 0) {
-            alert("There is an account with this email");
-        }
-        if(!Boolean(gmailVal[0].match(/\w/g))) {
-            alert("Email must begin with character a-z, A-Z, 0-9, including _")
-        }
-        if(!(gmailVal.includes("@"))) {
-            alert("Email must contain '@' symbol");
-        }
-        if(!(gmailVal.endsWith("gmail.com"))) {
-            alert("Email must ends with 'gmail.com'");
-        }*/
     }else if(sameEmail.length > 0) {
         signupGmailIssue.style.display = "block";
         signupGmailIssue.innerHTML = "<ul class = 'pwd-issue'><li>" +
@@ -98,31 +108,14 @@ function submitSignUp() {
           "<li>- at least one non-alphabetic and non-numeric character.</li>" +
            "<li>- must contain Latin alphabet and at least one lowercase letter.</li>" + 
            "<li>- at least one capital letter.</li></ul>";
-        /*if(passwordVal.length < 8){
-            alert("The password must be at least 8 characters long");
-        }
-        if(Boolean(passwordVal.match(/\s/g))) {
-            alert("the password must not contain a space");
-        }
-        if(!Boolean(passwordVal.match(/\d/g))) {
-            alert("the password must contain at least one number");
-        }
-        if(!Boolean(passwordVal.match(/\W/g))) {
-            alert("the password must contain at least one non-alphabetic and non-numeric character");
-        }
-        if(!Boolean(passwordVal.match(/[a-z]/g))) {
-            alert("the password must contain at least one lowercase letter");
-        }
-        if(!Boolean(passwordVal.match(/[A-Z]/g))) {
-            alert("The password must contain at least one capital letter");
-            alert("the password must contain letters of the Latin alphabet");
-        }*/
     }else {
-        gmailVal.trim();
-        passwordVal.trim();
-        let userExample = new User(gmailVal, passwordVal);
+        let previousUserId = usersArr[usersArr.length - 1].id;
+        let userExample = new User(gmailVal, passwordVal, previousUserId + 1);
         usersArr.push(userExample);
-        console.log(usersArr);
+        localStorage.setItem("user", JSON.stringify(usersArr));
+        let b = localStorage.getItem("user");
+        b = JSON.parse(b);
+        usersArr = b;
         signInVisible();
         setTimeout(()=>{alert("You have successfully registered. Enter your login details")}, 500);
     }
@@ -138,7 +131,7 @@ function submitSignIn() {
     signinPwdIssue.style.display = "none";
     let rightUser = [];
     for(let i = 0; i < usersArr.length; i++) {
-       if(usersArr[i].mail == gmailVal /*&& usersArr[i].passwrd == passwordVal*/) {
+       if(usersArr[i].mail == gmailVal) {
         rightUser.push(usersArr[i]);
        }
     }
@@ -151,6 +144,7 @@ function submitSignIn() {
         signinPwdIssue.innerHTML = "<ul class = 'pwd-issue'><li>" + 
         "<li>- You have entered an incorrect password.</li></ul>";
     }else{
+        localStorage.setItem("rightUser", rightUser[0]);
         window.location.href = "../store.html";
     }
 }

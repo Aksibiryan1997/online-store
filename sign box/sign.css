@@ -30,6 +30,7 @@ body {
     margin-left: calc(50% - 150px);
     margin-top: calc(17% - 175px);
 }
+
 .sign-div-text {
     display: inline;
 }
@@ -45,11 +46,11 @@ body {
     margin-left: 45px;
     margin-bottom: 20px;
     display: none;
+    color: red;
 }
 
 .pwd-issue {
     list-style-type: none;
-    color: red;
 }
 
 .submit {
