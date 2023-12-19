@@ -15,8 +15,15 @@ class User {
 
 };
 
-let firstUserExamp = new User("1", "2", 0);
-usersArr.push(firstUserExamp);
+if(localStorage.getItem("user")) {
+    usersArr = JSON.parse(localStorage.getItem("user"));
+    console.log("furme");
+    console.log(usersArr);
+}else{
+    let firstUserExamp = new User("1", "2", 0);
+    usersArr.push(firstUserExamp);
+    console.log("dga");
+}
 
 let signPageTitle = document.querySelector("title");
 if(signBlockVisibility) {
@@ -61,7 +68,7 @@ function signInVisible() {
     }
     signPageTitle.innerHTML = "Sign in";
     let signInIcon = document.querySelector("link[rel='shortcut icon']");
-    signInIcon.setAttribute("href", "../imagesbox/icons8-войти-16.png")
+    signInIcon.setAttribute("href", "../imagesbox/icons8-войти-16.png");
 }; 
 
 function submitSignUp() {
@@ -105,7 +112,10 @@ function submitSignUp() {
         let previousUserId = usersArr[usersArr.length - 1].id;
         let userExample = new User(gmailVal, passwordVal, previousUserId + 1);
         usersArr.push(userExample);
-        console.log(usersArr);
+        localStorage.setItem("user", JSON.stringify(usersArr));
+        let b = localStorage.getItem("user");
+        b = JSON.parse(b);
+        usersArr = b;
         signInVisible();
         setTimeout(()=>{alert("You have successfully registered. Enter your login details")}, 500);
     }
@@ -134,10 +144,7 @@ function submitSignIn() {
         signinPwdIssue.innerHTML = "<ul class = 'pwd-issue'><li>" + 
         "<li>- You have entered an incorrect password.</li></ul>";
     }else{
+        localStorage.setItem("rightUser", rightUser[0]);
         window.location.href = "../store.html";
     }
 }
-
-localStorage.setItem("user", JSON.stringify(usersArr));
-localStorage.getItem("user");
-console.log(usersArr);

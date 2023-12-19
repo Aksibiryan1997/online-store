@@ -1,0 +1,55 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    width: 100%;
+    background-color: white;
+}
+
+.go-home {
+    position: relative;
+    margin-left: 20px;
+    margin-top: 20px;
+    width: 54px;
+    height: 54px;
+}
+
+.go-home-link {
+    position: absolute;
+    height: 52px;
+}
+
+.profile-configs {
+    width: 200px;
+    border: 1px solid black;
+    height: 300px;
+    margin-left: 20px;
+    margin-top: calc(18% - 150px);
+}
+
+li {
+    margin: 5px 0 5px 10px;
+    font-weight: bold;
+    color: rgba(12, 151, 47, 0.822);
+    font-size: 22px;
+    list-style-type: none;
+}
+
+.config-block {
+    position: relative;
+    margin-left: calc(50% - 250px);
+    margin-top: -400px;
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+}
+
+.config-params {
+    position: absolute;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid green;
+}

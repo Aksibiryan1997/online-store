@@ -47,8 +47,7 @@ function showProduct(prodArray) {
         product.appendChild(productPrice);
         let productRating = document.createElement("p");
         productRating.setAttribute("class", "product-rating");
-        productRating.innerHTML = "<b>" + "Rate:" + "</b>" + " " + prodArray[i].rating.rate + 
-        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + "<b>" + "Count:" + "</b>" + " " + prodArray[i].rating.count;
+        productRating.innerHTML = "<b>" + "Count:" + "</b>" + " " + prodArray[i].rating.count;
         product.appendChild(productRating);
         let productDescription = document.createElement("p");
         productDescription.setAttribute("class", "product-description");
@@ -65,3 +64,16 @@ fetch('https://fakestoreapi.com/products')
     console.log(products);
     limitProduct(products);
 });
+
+if(localStorage.getItem("rightUser")) {
+    document.getElementsByClassName("profile-link")[0].setAttribute("style", "display: inline-block;");
+    document.getElementsByClassName("sign-out")[0].setAttribute("style", "display: inline-block;");
+    document.getElementsByClassName("sign-in")[0].setAttribute("style", "display: none;");
+}
+
+document.getElementsByClassName("sign-out")[0].addEventListener("click", function(){
+    localStorage.removeItem("rightUser");
+    document.getElementsByClassName("profile-link")[0].setAttribute("style", "display: none;");
+    document.getElementsByClassName("sign-out")[0].setAttribute("style", "display: none;");
+    document.getElementsByClassName("sign-in")[0].setAttribute("style", "display: block;");
+})

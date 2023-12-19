@@ -45,16 +45,12 @@ body {
 .header-sign {
     position: absolute;
     right: 20px;
-    margin-top: 19px;
+    margin-top: 24px;
     text-decoration: none;
     color: aqua;
     height: 40px;
     font-size: 30px;
     width: 100px;
-}
-
-.sign-in {
-    right: 150px;
 }
 
 .main {
@@ -103,4 +99,25 @@ body {
 
 .pagination-symbol {
     color: black;
+}
+
+.profile-link {
+    position: absolute;
+    right: 140px;
+    top: 10px;
+    height: 60px;
+    width: 60px;
+    display: none;
+}
+
+.profile-icon {
+    height: 60px;
+    width: 60px;
+}
+
+.sign-out {
+    display: none;
+    width: 110px;
+    text-align: center;
+    margin-top: 24px;
 }
