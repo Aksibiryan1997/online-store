@@ -53,3 +53,35 @@ li {
     height: 100%;
     border: 1px solid green;
 }
+
+.add-submit {
+    position: absolute;
+    display: block;
+    cursor: pointer;
+    float: right;
+    padding: 5px;
+    font-weight: bold;
+    font-size: 15px;
+    margin-right: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: chartreuse;
+}
+
+.add-submit:active {
+    background-color: rgb(87, 156, 18);
+}
+
+.add-product-form {
+    display: inline-block;
+}
+
+.product-issue {
+    position: absolute;
+    margin-left: 15px;
+    display: none;
+    text-align: center;
+    word-wrap: break-word;
+    padding: 5px;
+    color: red;
+}

@@ -76,4 +76,4 @@ document.getElementsByClassName("sign-out")[0].addEventListener("click", functio
     document.getElementsByClassName("profile-link")[0].setAttribute("style", "display: none;");
     document.getElementsByClassName("sign-out")[0].setAttribute("style", "display: none;");
     document.getElementsByClassName("sign-in")[0].setAttribute("style", "display: block;");
-})
+});

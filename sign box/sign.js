@@ -5,7 +5,7 @@ class User {
     constructor(gmail, password, id) {
         this.mail = gmail;
         this.passwrd = password;
-        this.id = id
+        this.id = id;
     }
 
     changeParms(email, pswrd) {
@@ -144,7 +144,7 @@ function submitSignIn() {
         signinPwdIssue.innerHTML = "<ul class = 'pwd-issue'><li>" + 
         "<li>- You have entered an incorrect password.</li></ul>";
     }else{
-        localStorage.setItem("rightUser", rightUser[0]);
+        localStorage.setItem("rightUser", JSON.stringify(rightUser[0]));
         window.location.href = "../store.html";
     }
 }
