@@ -57,13 +57,19 @@ function showProduct(prodArray) {
     }
 }
 
-fetch('https://fakestoreapi.com/products')
-.then(response=>response.json())
-.then(data=>{
-    products = data;
-    console.log(products);
+if(localStorage.getItem("addedProducts")) {
+    products = JSON.parse(localStorage.getItem("addedProducts"));
     limitProduct(products);
-});
+}else {
+    fetch('https://fakestoreapi.com/products')
+    .then(response=>response.json())
+    .then(data=>{
+        products = data;
+        console.log(products);
+        localStorage.setItem("fetchData", JSON.stringify(products));
+        limitProduct(products);
+    });   
+}
 
 if(localStorage.getItem("rightUser")) {
     document.getElementsByClassName("profile-link")[0].setAttribute("style", "display: inline-block;");
@@ -77,3 +83,6 @@ document.getElementsByClassName("sign-out")[0].addEventListener("click", functio
     document.getElementsByClassName("sign-out")[0].setAttribute("style", "display: none;");
     document.getElementsByClassName("sign-in")[0].setAttribute("style", "display: block;");
 });
+
+
+// localStorage.clear();
