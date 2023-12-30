@@ -37,6 +37,11 @@ li {
     list-style-type: none;
 }
 
+.confiq-button:hover {
+    background-color: blueviolet;
+    color: black;
+}
+
 .config-block {
     position: relative;
     margin-left: calc(50% - 250px);
@@ -54,7 +59,7 @@ li {
     border: 1px solid green;
 }
 
-.add-submit {
+.add-submit, .change-pwd-submit {
     position: absolute;
     display: block;
     cursor: pointer;
@@ -66,6 +71,13 @@ li {
     border: none;
     border-radius: 5px;
     background-color: chartreuse;
+}
+
+.change-pwd-submit {
+    float: left;
+    margin-right: auto;
+    margin-left: 60px;
+    margin-top: 10px;
 }
 
 .add-submit:active {
@@ -84,4 +96,25 @@ li {
     word-wrap: break-word;
     padding: 5px;
     color: red;
+}
+
+.config-params {
+    display: none;
+}
+
+input[type = checkbox] {
+    margin-left: 5px;
+    margin-top: 5px;
+}
+
+textarea[name = Description] {
+    margin-top: 5px;
+}
+
+.change-pwd-issues {
+    display: none;
+    color: red;
+    margin-top: 30px;
+    margin-left: 100px;
+    text-align: center;
 }

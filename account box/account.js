@@ -1,6 +1,8 @@
+let userData = JSON.parse(localStorage.getItem("rightUser"));
 let inputVals = document.getElementsByTagName("input");
 let prodArray = [];
 let emptyField = [];
+let userProducts = [];
 class prods {
     constructor(category, descript, prodId, url, price, prodcount, title) {
         this.category = category;
@@ -22,6 +24,10 @@ class prods {
     }
 };
 
+if(localStorage.getItem(userData.mail)) {
+    userProducts = JSON.parse(localStorage.getItem(userData.mail));
+}
+
 if(localStorage.getItem("addedProducts")) {
     prodArray = JSON.parse(localStorage.getItem("addedProducts"));
     console.log(prodArray);
@@ -30,9 +36,6 @@ if(localStorage.getItem("addedProducts")) {
 }
 
 function addProd() {
-    // console.log(!document.getElementById("Link").value.startsWith("https://"));
-    // console.log(document.getElementById("Price").value[0]);
-    // console.log(Boolean(document.getElementById("Price").value.match(/\D/g)));
     emptyField.length = 0;
     console.log(document.querySelector("select").value);
     console.log(document.querySelector("textarea").value);
@@ -71,10 +74,15 @@ function addProd() {
             prodArray[prodArray.length -1].id + 1, inputVals[0].value, 
              Number(inputVals[2].value), Number(inputVals[3].value), inputVals[1].value);
             prodArray.push(newProduct);
+            userProducts.push(newProduct);
+            localStorage.setItem(userData.mail, JSON.stringify(userProducts));
             localStorage.setItem("addedProducts", JSON.stringify(prodArray));
             let d = JSON.parse(localStorage.getItem("addedProducts"));
             prodArray = d;
             console.log(prodArray);
+            setTimeout(function(){
+                alert("Product added successfully");
+            }, 300);
         };
         img.onerror = function() {
             document.getElementsByClassName("product-issue")[0].setAttribute(
@@ -84,6 +92,89 @@ function addProd() {
              "An incorrect link to a photo was provided," +
              " or there are no photos with such a link. Please correct the photo.";
         };
+    }
+}
+
+let confiqButtons = document.getElementsByClassName("confiq-button");
+
+for(let i = 0; i < confiqButtons.length; i++) {
+    confiqButtons[i].addEventListener("click", function(){
+        let confiqParams = document.getElementsByClassName("config-params");
+        for(let g = 0; g < confiqParams.length; g++) {
+            confiqParams[g].setAttribute("style", "display: none;");
+        }
+        document.getElementsByClassName("config-params")[i].setAttribute("style", "display: block;");
+    });
+}
+
+document.getElementById("prev-checkbox").addEventListener("change", function(){
+    if(this.checked) {
+        document.getElementById("prev-password").setAttribute("type", "text");
+    }else {
+        document.getElementById("prev-password").setAttribute("type", "password");
+    }
+});
+document.getElementById("new-checkbox").addEventListener("change", function(){
+    if(this.checked) {
+        document.getElementById("new-password").setAttribute("type", "text");
+    }else {
+        document.getElementById("new-password").setAttribute("type", "password");
+    }
+});
+document.getElementById("repeat-checkbox").addEventListener("change", function(){
+    if(this.checked) {
+        document.getElementById("repeat-password").setAttribute("type", "text");
+    }else {
+        document.getElementById("repeat-password").setAttribute("type", "password");
+    }
+});
+
+function changePwd() {
+    let userPassword = JSON.parse(localStorage.getItem("rightUser")).passwrd;
+    let prevPwdVal = document.getElementById("prev-password").value;
+    let newPwdVal = document.getElementById("new-password").value;
+    let repeatedPwdVal = document.getElementById("repeat-password").value;
+    if(prevPwdVal != userPassword) {
+        document.getElementsByClassName("change-pwd-issues")[0].setAttribute("style", 
+        "display: none;");
+        document.getElementsByClassName("change-pwd-issues")[0].setAttribute("style", 
+        "display: block;");
+        document.getElementsByClassName("change-pwd-issues")[0].innerHTML = 
+        "- Previous password is incorrect";
+    }else if(newPwdVal.length < 8 || Boolean(newPwdVal.match(/\s/g)) ||
+    !Boolean(newPwdVal.match(/\d/g)) || !Boolean(newPwdVal.match(/\W/g)) ||
+    !Boolean(newPwdVal.match(/[a-z]/g)) || !Boolean(newPwdVal.match(/[A-Z]/g))) {
+        document.getElementsByClassName("change-pwd-issues")[0].setAttribute("style", 
+        "display: none;");
+        document.getElementsByClassName("change-pwd-issues")[0].setAttribute("style", 
+        "display: block;");
+        document.getElementsByClassName("change-pwd-issues")[0].innerHTML = 
+        "<ul class = 'pwd-issue'><li>- at least 8 characters.</li>" +
+         "<li>- must not contain a space.</li>" + "<li>- at least one number.</li>" +
+          "<li>- at least one non-alphabetic and non-numeric character.</li>" +
+           "<li>- must contain Latin alphabet and at least one lowercase letter.</li>" + 
+           "<li>- at least one capital letter.</li></ul>";
+    }else if(repeatedPwdVal != newPwdVal) {
+        document.getElementsByClassName("change-pwd-issues")[0].setAttribute("style", 
+        "display: none;");
+        document.getElementsByClassName("change-pwd-issues")[0].setAttribute("style", 
+        "display: block;");
+        document.getElementsByClassName("change-pwd-issues")[0].innerHTML = 
+        "- Repeated password is incorrect";
+    }else {
+        let newRightUser = JSON.parse(localStorage.getItem("rightUser"));
+        let newUsersArray = JSON.parse(localStorage.getItem("user"));
+        newRightUser.passwrd = newPwdVal;
+        for(let i = 0; i < newUsersArray.length; i++) {
+            if(newUsersArray[i].mail == newRightUser.mail) {
+                newUsersArray[i].passwrd = newPwdVal;
+            }
+        }
+        localStorage.setItem("user", JSON.stringify(newUsersArray));
+        localStorage.setItem("rightUser", JSON.stringify(newRightUser));
+        setTimeout(function() {
+            alert("Password changed successfully");
+        }, 500);
     }
 }
 
