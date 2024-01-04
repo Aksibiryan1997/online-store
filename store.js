@@ -1,4 +1,7 @@
 let products = [];
+let initialFilter = [];
+let filteredProducts = [];
+let moreLessFilter = 15;
 let limitOfProducts;
 
 function setlimits(arr, numb1, numb2) {
@@ -84,5 +87,82 @@ document.getElementsByClassName("sign-out")[0].addEventListener("click", functio
     document.getElementsByClassName("sign-in")[0].setAttribute("style", "display: block;");
 });
 
+document.getElementsByClassName("more")[0].addEventListener("click", function() {
+    this.setAttribute("style", "color: red;");
+    document.getElementsByClassName("less")[0].setAttribute("style", "color: blue;");
+    moreLessFilter = 20;
+});
+
+document.getElementsByClassName("less")[0].addEventListener("click", function() {
+    this.setAttribute("style", "color: red;");
+    document.getElementsByClassName("more")[0].setAttribute("style", "color: blue;");
+    moreLessFilter = 10;
+});
+
+
+function filterfunc() {
+    filteredProducts = [];
+    document.getElementsByClassName("products-block")[0].innerHTML = "";
+    switch(document.getElementById("Category").value) {
+        case "men's clothing":
+            let mensClothingProds = products.filter(mensClothing);
+            function mensClothing(value) {
+                return value.category == "men's clothing";
+            }
+            console.log(mensClothingProds);
+            filteredProducts = [...mensClothingProds];
+            break;
+        case "jewelery":
+            let jeweleryProds = products.filter(jeweleryFunc);
+            function jeweleryFunc(value) {
+                return value.category == "jewelery";
+            }
+            console.log(jeweleryProds);
+            filteredProducts = [...jeweleryProds];
+            break;
+        case "electronics":
+            let electronicsProds = products.filter(electronicsFunc);
+            function electronicsFunc(value) {
+                return value.category == "electronics";
+            }
+            console.log(electronicsProds);
+            filteredProducts = [...electronicsProds];
+            break;
+        case "women's clothing":
+            let womensClothingProds = products.filter(womensClothing);
+            function womensClothing(value) {
+                return value.category == "women's clothing";
+            }
+            console.log(womensClothingProds);
+            filteredProducts = [...womensClothingProds];
+            break;
+        case "":
+            console.log(products);
+            filteredProducts = [...products];
+            break;
+    }
+
+    initialFilter = [...filteredProducts];
+
+    if(moreLessFilter == 20) {
+        filteredProducts.sort(function(a, b) {
+            return b.price - a.price;
+         });
+    }else if(moreLessFilter == 10) {
+        filteredProducts.sort(function(a, b) {
+            return a.price - b.price;
+         });
+    }else {
+        filteredProducts = [];
+        filteredProducts = [...initialFilter];
+    }
+
+    limitProduct(filteredProducts);
+}
+
+function resetFilters() {
+    document.getElementsByClassName("products-block")[0].innerHTML = "";
+    limitProduct(products);
+}
 
 // localStorage.clear();

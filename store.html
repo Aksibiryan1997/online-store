@@ -20,6 +20,21 @@
         </a>
         <a class="header-sign sign-out" href="#">Sign out</a>
     </div>
+    <div class="filters">
+        <p class="filter category-filter">Category : </p>
+        <select name="Category" id="Category">
+            <option value=""></option>
+            <option value="men's clothing">men's clothing</option>
+            <option value="jewelery">jewelery</option>
+            <option value="electronics">electronics</option>
+            <option value="women's clothing">women's clothing</option>
+        </select>
+        <p class="filter price-filter">Price :</p>
+        <button class="more">&#8595;</button>
+        <button class="less">&#8593;</button>
+        <button onclick="filterfunc();" class="filter-buttons filtrate">Filtrate</button>
+        <button onclick="resetFilters();" class="filter-buttons reset-filter">Reset filter</button>
+    </div>
     <div class="main">
         <div class="products-block"></div>
         <div class="pagination-block">
@@ -30,6 +45,6 @@
             <a class="pagination-button pagination-symbol" href="#">>></a>
         </div>
     </div>
-    <script type="module" src="store.js"></script>
+    <script src="store.js"></script>
 </body>
 </html>

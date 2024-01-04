@@ -14,6 +14,7 @@ body {
     width: 100%;
     height: 80px;
     background-color: blueviolet;
+    margin-bottom: 40px;
 }
 
 .header-link {
@@ -120,4 +121,46 @@ body {
     width: 110px;
     text-align: center;
     margin-top: 24px;
+}
+
+.filters {
+    position: relative;
+    width: 100%;
+    padding: 18px 25px;
+    height: 70px;
+    background-color: black;
+    margin: auto;
+}
+
+.filter {
+    display: inline-block;
+    color: white;
+    margin: 0 10px 0 10px;
+    font-size: 20px;
+}
+
+.more, .less {
+    margin: 0;
+    margin-right: 5px;
+    padding: 0;
+    font-size: 25px;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: blue;
+}
+
+.less {
+    margin-right: 10px;
+}
+
+.filter-buttons {
+    border-radius: 5px;
+    background-color: green;
+    padding: 5px 10px;
+    margin-right: 10px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
 }
