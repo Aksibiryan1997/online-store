@@ -149,11 +149,11 @@ function changePwd() {
         document.getElementsByClassName("change-pwd-issues")[0].setAttribute("style", 
         "display: block;");
         document.getElementsByClassName("change-pwd-issues")[0].innerHTML = 
-        "<ul class = 'pwd-issue'><li>- at least 8 characters.</li>" +
-         "<li>- must not contain a space.</li>" + "<li>- at least one number.</li>" +
-          "<li>- at least one non-alphabetic and non-numeric character.</li>" +
-           "<li>- must contain Latin alphabet and at least one lowercase letter.</li>" + 
-           "<li>- at least one capital letter.</li></ul>";
+        "- at least 8 characters.<br>" + 
+         "- must not contain a space.<br>" + "- at least one number.<br>" +
+          "- at least one non-alphabetic and non-numeric character.<br>" +
+           "- must contain Latin alphabet and at least one lowercase letter.<br>" + 
+           "- at least one capital letter.";
     }else if(repeatedPwdVal != newPwdVal) {
         document.getElementsByClassName("change-pwd-issues")[0].setAttribute("style", 
         "display: none;");
