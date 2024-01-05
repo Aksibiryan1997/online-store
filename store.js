@@ -1,6 +1,7 @@
 let products = [];
 let initialFilter = [];
 let filteredProducts = [];
+let filterByTitle = [];
 let moreLessFilter = 15;
 let limitOfProducts;
 
@@ -109,7 +110,6 @@ function filterfunc() {
             function mensClothing(value) {
                 return value.category == "men's clothing";
             }
-            console.log(mensClothingProds);
             filteredProducts = [...mensClothingProds];
             break;
         case "jewelery":
@@ -117,7 +117,6 @@ function filterfunc() {
             function jeweleryFunc(value) {
                 return value.category == "jewelery";
             }
-            console.log(jeweleryProds);
             filteredProducts = [...jeweleryProds];
             break;
         case "electronics":
@@ -125,7 +124,6 @@ function filterfunc() {
             function electronicsFunc(value) {
                 return value.category == "electronics";
             }
-            console.log(electronicsProds);
             filteredProducts = [...electronicsProds];
             break;
         case "women's clothing":
@@ -133,11 +131,9 @@ function filterfunc() {
             function womensClothing(value) {
                 return value.category == "women's clothing";
             }
-            console.log(womensClothingProds);
             filteredProducts = [...womensClothingProds];
             break;
         case "":
-            console.log(products);
             filteredProducts = [...products];
             break;
     }
@@ -165,4 +161,37 @@ function resetFilters() {
     limitProduct(products);
 }
 
+document.getElementsByClassName("submit-search")[0].addEventListener("click", function() {
+    filterByTitle = [];
+    let searchValue = document.getElementById("title-search").value;
+    let modSearchVal = new RegExp(searchValue, "i");
+    for(let i = 0; i < products.length; i++) {
+        if(products[i].title.match(modSearchVal)) {
+            filterByTitle.push(products[i]);
+        }
+    }
+    if(filterByTitle.length > 0 && searchValue.length != 0) {
+        document.getElementsByClassName("products-block")[0].innerHTML = "";
+        limitProduct(filterByTitle);
+        document.getElementsByClassName("search-results")[0].setAttribute(
+            "style", "display: block;"
+        );
+        document.getElementsByClassName("search-results")[0].innerHTML = 
+        "Search results: " + filterByTitle.length;
+        console.log(filterByTitle);
+    }else if(searchValue.length == 0) {
+        document.getElementsByClassName("products-block")[0].innerHTML = "";
+        limitProduct(products);
+        document.getElementsByClassName("search-results")[0].setAttribute(
+            "style", "display: none;"
+        );
+    }else {
+        document.getElementsByClassName("search-results")[0].setAttribute(
+            "style", "display: none;"
+        );
+        setTimeout(function() {
+            alert("There are no products with this title");
+        }, 200)
+    }
+})
 // localStorage.clear();
