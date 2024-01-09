@@ -1,5 +1,6 @@
 let products = [];
 let initialFilter = [];
+let copyProductArray = [];
 let filteredProducts = [];
 let filterByTitle = [];
 let moreLessFilter = 15;
@@ -11,19 +12,56 @@ function setlimits(arr, numb1, numb2) {
 }
 
 function limitProduct(fullArray) {
-    let paginationNumber = document.getElementsByClassName("pagination-number");
-    setlimits(fullArray, 0, 8);
-    for(let i = 0; i < paginationNumber.length; i++) {
-        paginationNumber[i].addEventListener("click", function(){
+    document.getElementsByClassName("pagination-block")[0].innerHTML = '';
+    let minlimit;
+    let maxlimit;
+    let pageButtons;
+    let paginationBlock = document.getElementsByClassName("pagination-block")[0];
+    let linksCount = Math.ceil(fullArray.length / 8);
+    let previousLink = document.createElement("button");
+    previousLink.innerHTML = "<<";
+    previousLink.setAttribute("class", "pagination-button pagination-symbol"); 
+    paginationBlock.appendChild(previousLink);
+    previousLink.addEventListener("click", function() {
+        if(minlimit > 0) {
+            pageButtons[(minlimit / 8) - 1].click();
+        }
+    });
+    for(let i = 1; i <= linksCount; i++) {
+        let pageLink = document.createElement("button");
+        pageLink.innerHTML = i;
+        pageLink.setAttribute("class", "pagination-button pagination-number");
+        paginationBlock.appendChild(pageLink);
+    }
+    pageButtons = document.getElementsByClassName("pagination-number");
+    for(let i = 0; i < pageButtons.length; i++) {
+        pageButtons[i].addEventListener("click", function() {
+            for(let g = 0; g < pageButtons.length; g++) {
+                pageButtons[g].setAttribute("style", "background-color: rgba(80, 80, 80, 0);");
+            }
             document.getElementsByClassName("products-block")[0].innerHTML = '';
-            let limitnumber = Number(paginationNumber[i].innerHTML);
-            let minlimit = (limitnumber - 1) * 8 ;
-            let maxlimit = limitnumber * 8; 
-            if(maxlimit > fullArray.length){
+            minlimit = i * 8;
+            maxlimit = (i + 1) * 8;
+            if(maxlimit > fullArray.length) {
                 maxlimit = fullArray.length;
             }
             setlimits(fullArray, minlimit, maxlimit);
+            pageButtons[i].setAttribute("style", "background-color: green;");
         })
+    }
+
+    let nextLink = document.createElement("button");
+    nextLink.innerHTML = ">>";
+    nextLink.setAttribute("class", "pagination-button pagination-symbol"); 
+    paginationBlock.appendChild(nextLink);
+    nextLink.addEventListener("click", function() {
+        if(maxlimit < fullArray.length) {
+            pageButtons[maxlimit / 8].click();
+        }
+    });
+
+    if(fullArray.length > 0) {
+        pageButtons[0].click();
     }
 }
 
@@ -69,6 +107,7 @@ if(localStorage.getItem("addedProducts")) {
     .then(response=>response.json())
     .then(data=>{
         products = data;
+        copyProductArray = [...products];
         console.log(products);
         localStorage.setItem("fetchData", JSON.stringify(products));
         limitProduct(products);
@@ -158,10 +197,14 @@ function filterfunc() {
 
 function resetFilters() {
     document.getElementsByClassName("products-block")[0].innerHTML = "";
+    document.getElementById("Category").value = "";
+    document.getElementsByClassName("more")[0].setAttribute("style", "color: blue;");
+    document.getElementsByClassName("less")[0].setAttribute("style", "color: blue;");
     limitProduct(products);
 }
 
 document.getElementsByClassName("submit-search")[0].addEventListener("click", function() {
+    products = copyProductArray;
     filterByTitle = [];
     let searchValue = document.getElementById("title-search").value;
     let modSearchVal = new RegExp(searchValue, "i");
@@ -172,7 +215,8 @@ document.getElementsByClassName("submit-search")[0].addEventListener("click", fu
     }
     if(filterByTitle.length > 0 && searchValue.length != 0) {
         document.getElementsByClassName("products-block")[0].innerHTML = "";
-        limitProduct(filterByTitle);
+        products = filterByTitle;
+        limitProduct(products);
         document.getElementsByClassName("search-results")[0].setAttribute(
             "style", "display: block;"
         );
