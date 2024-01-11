@@ -8,11 +8,6 @@ class User {
         this.id = id;
     }
 
-    changeParms(email, pswrd) {
-        this.mail = email;
-        this.passwrd = pswrd;
-    } 
-
 };
 
 if(localStorage.getItem("user")) {

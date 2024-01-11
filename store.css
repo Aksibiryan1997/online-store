@@ -78,6 +78,10 @@ body {
     margin: 10px;
 }
 
+.product-rating {
+    display: inline;
+}
+
 .product-description {
     color: darkgreen;
 }
@@ -197,4 +201,31 @@ input[type=search] {
     margin-left: 40px;
     background-color: blue;
     font-size: 20px;
+}
+
+.buy-count {
+    float: right;
+    display: inline;
+    font-size: 21px;
+    color: red;
+    font-weight: bold;
+    padding-top: 18px;
+    text-align: center;
+    background-image: url("./imagesbox/icons8-basket-48.png");
+    background-size: cover;
+    width: 56px;
+    height: 50px;
+    margin-right: 50px;
+    margin-top: -7px;
+    cursor: pointer;
+}
+
+.buy-product {
+    display: inline;
+    background-color: blueviolet;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 20px;
+    font-size: 15px;
 }
