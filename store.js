@@ -5,6 +5,7 @@ let filteredProducts = [];
 let filterByTitle = [];
 let moreLessFilter = 15;
 let limitOfProducts;
+let buyCountVal = document.getElementsByClassName("buy-count")[0].innerHTML;
 
 function setlimits(arr, numb1, numb2) {
     limitOfProducts = arr.slice(numb1, numb2);
@@ -91,11 +92,42 @@ function showProduct(prodArray) {
         productRating.setAttribute("class", "product-rating");
         productRating.innerHTML = "<b>" + "Count:" + "</b>" + " " + prodArray[i].rating.count;
         product.appendChild(productRating);
+        let buyProduct = document.createElement("button");
+        buyProduct.setAttribute("class", "buy-product");
+        buyProduct.addEventListener("click", function() {
+            if(localStorage.getItem("rightUser")) {
+                let userRight = JSON.parse(localStorage.getItem("rightUser"));
+                if(!product.hasAttribute("style")) {
+                    product.setAttribute("style", "border: 1px solid green;");
+                    buyCountVal = (Number(buyCountVal) + 1).toString();
+                    document.getElementsByClassName("buy-count")[0].innerHTML = buyCountVal;
+                    userRight.styleopyion = [];
+                    userRight.styleopyion.push(productTitle.innerHTML);
+                } else {
+                    product.removeAttribute("style");
+                    buyCountVal = (Number(buyCountVal) - 1).toString();
+                    document.getElementsByClassName("buy-count")[0].innerHTML = buyCountVal;
+                    removeElmnt(userRight.styleopyion, productTitle.innerHTML);
+                }
+                localStorage.setItem("rightUser", JSON.stringify(userRight));
+            }else {
+                alert("you need to register to buy the product");
+            }
+        });
+        buyProduct.innerHTML = "<b>" + "Buy" + "</b>";
+        product.appendChild(buyProduct);
         let productDescription = document.createElement("p");
         productDescription.setAttribute("class", "product-description");
         productDescription.setAttribute("title", prodArray[i].description);
         productDescription.innerHTML = "<b>" + "Description:" + "</b>";
         product.appendChild(productDescription);
+    }
+}
+
+function removeElmnt(array, element) {
+    let elementIndex = array.indexOf(element);
+    if(elementIndex !== -1) {
+        array.splice(elementIndex, 1);
     }
 }
 
@@ -107,6 +139,11 @@ if(localStorage.getItem("addedProducts")) {
     .then(response=>response.json())
     .then(data=>{
         products = data;
+        for(let i = 0; i < products.length; i++) {
+            if(Boolean(products[i].title.match("(LC49HG90DMNXZA)"))) {
+                products[i].title = "Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor";
+            }
+        }
         copyProductArray = [...products];
         console.log(products);
         localStorage.setItem("fetchData", JSON.stringify(products));
@@ -238,4 +275,7 @@ document.getElementsByClassName("submit-search")[0].addEventListener("click", fu
         }, 200)
     }
 })
+
+document.cookie = "myCookie=example; Samesite=None; Secure";
+
 // localStorage.clear();
