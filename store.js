@@ -5,7 +5,6 @@ let filteredProducts = [];
 let filterByTitle = [];
 let moreLessFilter = 15;
 let limitOfProducts;
-let buyCountVal = document.getElementsByClassName("buy-count")[0].innerHTML;
 
 function setlimits(arr, numb1, numb2) {
     limitOfProducts = arr.slice(numb1, numb2);
@@ -67,6 +66,7 @@ function limitProduct(fullArray) {
 }
 
 function showProduct(prodArray) {
+    let buyCountVal = document.getElementsByClassName("buy-count")[0].innerHTML;
     let productsBlock = document.getElementsByClassName("products-block");
     for(let i = 0; i < prodArray.length; i++) {
         let product = document.createElement("div");
@@ -84,6 +84,16 @@ function showProduct(prodArray) {
         productTitle.setAttribute("class", "product-title");
         productTitle.innerHTML ="<b>" + "Title:" + "</b>" + " " + prodArray[i].title;
         product.appendChild(productTitle);
+        if(localStorage.getItem("rightUser")) {
+            let rightUserStyleVal = JSON.parse(localStorage.getItem("rightUser"));
+            buyCountVal = rightUserStyleVal.styleVal.length.toString();
+            document.getElementsByClassName("buy-count")[0].innerHTML = buyCountVal;
+            if(rightUserStyleVal.styleVal.includes(
+                productTitle.innerHTML.slice(14,productTitle.innerHTML.length)
+            )) {
+                product.setAttribute("style", "border: 1px solid green;");
+            }
+        }
         let productPrice = document.createElement("p");
         productPrice.setAttribute("class", "product-price");
         productPrice.innerHTML = "<b>" + "Price:" + "</b>" + " " + prodArray[i].price + " " + "&#36;";
@@ -97,19 +107,32 @@ function showProduct(prodArray) {
         buyProduct.addEventListener("click", function() {
             if(localStorage.getItem("rightUser")) {
                 let userRight = JSON.parse(localStorage.getItem("rightUser"));
+                let usersArray = JSON.parse(localStorage.getItem("user"));
+                let b;
+                for(let m = 0; m < usersArray.length; m++) {
+                    if(usersArray[m].mail == userRight.mail) {
+                        b = m;
+                    }
+                }
                 if(!product.hasAttribute("style")) {
                     product.setAttribute("style", "border: 1px solid green;");
                     buyCountVal = (Number(buyCountVal) + 1).toString();
                     document.getElementsByClassName("buy-count")[0].innerHTML = buyCountVal;
-                    userRight.styleopyion = [];
-                    userRight.styleopyion.push(productTitle.innerHTML);
+                    userRight.styleVal.push(productTitle.innerHTML.slice(14,
+                        productTitle.innerHTML.length));
+                    usersArray[b].styleVal.push(productTitle.innerHTML.slice(14,
+                        productTitle.innerHTML.length));    
                 } else {
                     product.removeAttribute("style");
                     buyCountVal = (Number(buyCountVal) - 1).toString();
                     document.getElementsByClassName("buy-count")[0].innerHTML = buyCountVal;
-                    removeElmnt(userRight.styleopyion, productTitle.innerHTML);
+                    removeElmnt(userRight.styleVal, productTitle.innerHTML.slice(14, 
+                        productTitle.innerHTML.length));
+                    removeElmnt(usersArray[b].styleVal, productTitle.innerHTML.slice(14, 
+                        productTitle.innerHTML.length));
                 }
                 localStorage.setItem("rightUser", JSON.stringify(userRight));
+                localStorage.setItem("user", JSON.stringify(usersArray));
             }else {
                 alert("you need to register to buy the product");
             }
@@ -159,6 +182,9 @@ if(localStorage.getItem("rightUser")) {
 
 document.getElementsByClassName("sign-out")[0].addEventListener("click", function(){
     localStorage.removeItem("rightUser");
+    document.getElementsByClassName("buy-count")[0].innerHTML = "0";
+    resetFilters();
+    document.getElementById("title-search").value = "";
     document.getElementsByClassName("profile-link")[0].setAttribute("style", "display: none;");
     document.getElementsByClassName("sign-out")[0].setAttribute("style", "display: none;");
     document.getElementsByClassName("sign-in")[0].setAttribute("style", "display: block;");
