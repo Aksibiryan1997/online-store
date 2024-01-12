@@ -6,6 +6,7 @@ class User {
         this.mail = gmail;
         this.passwrd = password;
         this.id = id;
+        this.styleVal = [];
     }
 
 };
